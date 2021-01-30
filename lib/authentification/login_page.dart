@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test/authentification/sign_in.dart';
 import 'package:flutter_app_test/first_screen.dart';
+import 'package:sign_button/sign_button.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -30,8 +31,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _signInButton() {
-    return OutlineButton(
-      splashColor: Colors.grey,
+    return SignInButton(
+      buttonType: ButtonType.google,
       onPressed: () {
         signInWithGoogle().then((result) {
           if (result != null){
@@ -43,26 +44,6 @@ class _LoginPageState extends State<LoginPage> {
           }
         });
       },
-      shape: RoundedRectangleBorder(borderRadius:  BorderRadius.circular(40)),
-      highlightElevation: 0,
-      borderSide: BorderSide(color:  Colors.grey),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image(image: AssetImage("assets/images/google-logo.png"), height: 35.0,),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              tr('Sign in with Google'),
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.grey,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

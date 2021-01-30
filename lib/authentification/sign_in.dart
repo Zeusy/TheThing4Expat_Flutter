@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app_test/constants/globals.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -49,6 +51,30 @@ Future<String> signInWithGoogle() async {
 
     print('signInWithGoogle succeded: $user');
 
+    FirebaseFirestore Firestore = FirebaseFirestore.instance;
+
+    /*final QuerySnapshot result = await Firestore.collection('users').where('id', isEqualTo: user.uid).get();//Documents();
+    final List < DocumentSnapshot > documents = result.documents;
+    if (documents.length == 0) {
+      // Update data to server if new user
+      Firestore.collection('users').document(user.uid).setData({ 'nickname': name, 'photoUrl': imageUrl, 'id': user.uid });
+    }*/
+    DocumentSnapshot documentSnapshot = await Firestore.collection('users').doc(user.uid).get();
+    if(!documentSnapshot.exists) {
+      await Firestore.collection('users').doc(user.uid).set({
+        'email': email,
+        'nickname': name,
+        'photoUrl': imageUrl,
+        'address': {
+          'country': null,
+          'street': null,
+          'cp': null,
+          'city': null,
+        },
+        'birthday': '01/01/1970',
+        'id': user.uid,
+      }).then((value) => print("success"));
+    }
     return '$user';
   }
   return null;
