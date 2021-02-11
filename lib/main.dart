@@ -6,6 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_app_test/authentification/login_page.dart';
+import 'package:flutter_app_test/first_screen.dart';
+import 'package:flutter_app_test/models/menu_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:progressive_image/progressive_image.dart';
@@ -43,7 +45,13 @@ class MyApp extends StatelessWidget {
       print(e);
     }
 
-    return MaterialApp(
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (_) => MenuProvider(),
+      ),
+    ],
+      child: //LoginPage()//FirstScreen(),
+      MaterialApp(
       title: 'Flutter Demo',
       onGenerateTitle: (context) => tr("app_name"),
       debugShowCheckedModeBanner: false, // fait disparaitre la banière débug
@@ -55,19 +63,21 @@ class MyApp extends StatelessWidget {
       supportedLocales: EasyLocalization.of(context).supportedLocales,
       locale: locale,
       theme: ThemeData(
-        primarySwatch: Colors.red,
-        accentColor: Colors.redAccent,
-        buttonColor: Colors.pink,
+        primarySwatch: Colors.blue,
+        accentColor: Colors.blueAccent,
+        buttonColor: Colors.blue[900],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: LoginPage(),
       //home: MyHomePage(title: 'Flux Reader with flutter'),
       /*home: ChangeNotifierProvider(
         create: (_) => MenuProvider(),
-        child: HomeScreen(),
+        child: LoginPage()//FirstScreen(),
       ),*/
-    );
+    ));
   }
 }
+
+
 
 

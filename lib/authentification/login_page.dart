@@ -2,7 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test/authentification/sign_in.dart';
 import 'package:flutter_app_test/first_screen.dart';
+import 'package:flutter_app_test/models/menu_provider.dart';
 import 'package:sign_button/sign_button.dart';
+
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
